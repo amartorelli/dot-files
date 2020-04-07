@@ -16,6 +16,4 @@ let g:go_fmt_command = "goimports"
 set laststatus=2
 set foldmethod=indent
 set nofoldenable
-set autochdir
-set path=$PWD/**
 set tags=tags
