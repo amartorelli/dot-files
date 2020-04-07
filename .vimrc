@@ -18,3 +18,4 @@ set foldmethod=indent
 set nofoldenable
 set autochdir
 set path=$PWD/**
+set tags=tags
