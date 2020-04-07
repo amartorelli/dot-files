@@ -1,17 +1,22 @@
-colorscheme base16-harmonic-dark
+colorscheme base16-dracula
 syntax enable
 set number
 set showcmd
 filetype plugin indent on
 set wildmenu
+set nocursorline
 set lazyredraw
 set showmatch
 set incsearch
 set hlsearch
-set foldmethod=marker
 let g:go_fmt_command = "goimports"
+
+" FOLD
 set foldmethod=indent
 set nofoldenable
+set foldlevel=1
+set foldnestmax=10
+
 set path=$PWD/**
 set tags=tags
 
@@ -39,3 +44,12 @@ set statusline+=%#CursorIM#     " colour
 set statusline+=\ %3l:%-2c\         " line + column
 set statusline+=%#Cursor#       " colour
 set statusline+=\ %3p%%\                " percentage
+
+" AUTOCLOSE PARENTHESIS
+inoremap " ""<left>
+inoremap ' ''<left>
+inoremap ( ()<left>
+inoremap [ []<left>
+inoremap { {}<left>
+inoremap {<CR> {<CR>}<ESC>O
+inoremap {;<CR> {<CR>};<ESC>O
