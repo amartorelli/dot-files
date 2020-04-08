@@ -1,4 +1,4 @@
-colorscheme base16-dracula
+colorscheme base16-rebecca
 syntax enable
 set number
 set showcmd
@@ -53,3 +53,9 @@ inoremap [ []<left>
 inoremap { {}<left>
 inoremap {<CR> {<CR>}<ESC>O
 inoremap {;<CR> {<CR>};<ESC>O
+
+setlocal omnifunc=syntaxcomplete#Complete
+
+" SPLIT
+set splitbelow
+set splitright
