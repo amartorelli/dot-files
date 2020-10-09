@@ -1,61 +1,78 @@
-colorscheme base16-rebecca
-syntax enable
-set number
-set showcmd
-filetype plugin indent on
-set wildmenu
-set nocursorline
-set lazyredraw
-set showmatch
+syntax on
+
+set noerrorbells
+set tabstop=4 softtabstop=4
+set shiftwidth=4
+set expandtab
+set nu
+set relativenumber
+set nowrap
+set smartcase
+set noswapfile
+set nobackup
+set undodir=~/.vim/undodir
+set undofile
 set incsearch
-set hlsearch
-let g:go_fmt_command = "goimports"
-
-" FOLD
-set foldmethod=indent
-set nofoldenable
-set foldlevel=1
-set foldnestmax=10
-
-set path=$PWD/**
-set tags=tags
-
-" STATUSLINE
 set laststatus=2
-set statusline=
-set statusline+=%#DiffAdd#%{(mode()=='n')?'\ \ NORMAL\ ':''}
-set statusline+=%#DiffChange#%{(mode()=='i')?'\ \ INSERT\ ':''}
-set statusline+=%#DiffDelete#%{(mode()=='r')?'\ \ RPLACE\ ':''}
-set statusline+=%#Cursor#%{(mode()=='v')?'\ \ VISUAL\ ':''}
-set statusline+=\ %n\           " buffer number
-set statusline+=%#Visual#       " colour
-set statusline+=%{&paste?'\ PASTE\ ':''}
-set statusline+=%{&spell?'\ SPELL\ ':''}
-set statusline+=%#CursorIM#     " colour
-set statusline+=%R                        " readonly flag
-set statusline+=%M                        " modified [+] flag
-set statusline+=%#Cursor#               " colour
-set statusline+=%#CursorLine#     " colour
-set statusline+=\ %t\                   " short file name
-set statusline+=%=                          " right align
-set statusline+=%#CursorLine#   " colour
-set statusline+=\ %Y\                   " file type
-set statusline+=%#CursorIM#     " colour
-set statusline+=\ %3l:%-2c\         " line + column
-set statusline+=%#Cursor#       " colour
-set statusline+=\ %3p%%\                " percentage
 
-" AUTOCLOSE PARENTHESIS
-inoremap " ""<left>
-inoremap ' ''<left>
-inoremap ( ()<left>
-inoremap [ []<left>
-inoremap { {}<left>
-inoremap {<CR> {<CR>}<ESC>O
-inoremap {;<CR> {<CR>};<ESC>O
+call plug#begin('~/.vim/plugged')
+Plug 'morhetz/gruvbox'
+Plug 'jremmen/vim-ripgrep'
+Plug 'tpope/vim-fugitive'
+Plug 'vim-utils/vim-man'
+Plug 'lyuts/vim-rtags'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'mbbill/undotree'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
+Plug 'fatih/vim-go'
+Plug 'Lokaltog/vim-powerline'
 
-setlocal omnifunc=syntaxcomplete#Complete
+Plug 'neoclide/coc-python'
+Plug 'josa42/coc-go'
+Plug 'neoclide/coc-yaml'
+Plug 'neoclide/coc-json'
+Plug 'neoclide/coc-html'
+Plug 'neoclide/coc-css'
+Plug 'fannheyward/coc-pyright'
+call plug#end()
 
-" SPLIT
-set splitbelow
-set splitright
+colorscheme gruvbox
+set background=dark
+
+if executable('rg')
+    let g:rg_derive_root='true'
+endif
+
+let mapleader = " "
+let g:netrw_browse_split=2
+let g:netrw_banner = 0
+let g:netrw_winsize = 25
+
+nnoremap <leader>h :wincmd h<CR>
+nnoremap <leader>j :wincmd j<CR>
+nnoremap <leader>k :wincmd k<CR>
+nnoremap <leader>l :wincmd l<CR>
+nnoremap <leader>u :UndotreeShow<CR>
+nnoremap <leader>pv :wincmd v<bar> :Ex <bar> :vertical resize 30<CR>
+nnoremap <leader>ps :Rg<SPACE>
+nnoremap <silent> <leader>+ :vertical resize +5<CR>
+nnoremap <silent> <leader>- :vertical resize -5<CR>
+
+" COC
+nmap <silent> <leader>cd <Plug>(coc-definition)
+nmap <silent> <leader>cr <Plug>(coc-references-used)
+
+call coc#config('diagnostic.checkCurrentLine', 'true')
+
+" PBCOPY
+nmap <silent> <leader>pbc :w !pbcopy<CR>
+nmap <silent> <leader>pbp :r !pbpaste<CR>
+
+" FZF
+nmap <silent> <leader>ff :FZF<CR>
+
+" VIM-GO
+let g:go_fmt_command = "goimports"
+nmap <silent> <leader>gt :GoTestCompile<CR>
+nmap <silent> <leader>gd :GoDoc<CR>
